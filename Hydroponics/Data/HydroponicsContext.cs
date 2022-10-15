@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hydroponics.Data;
 
-public class HydroponicsContext : DbContext
+internal class HydroponicsContext : DbContext
 {
-  public virtual DbSet<Substrate> Substrates { get; set; }
   public virtual DbSet<CultivationMethod> CultivationMethods { get; set; }
+  public virtual DbSet<Measure> Measures { get; set; }
+  public virtual DbSet<Pot> Pots { get; set; }
+  public virtual DbSet<Substrate> Substrates { get; set; }
 
   public HydroponicsContext(DbContextOptions<HydroponicsContext> options) : base(options)
   {
@@ -22,9 +24,11 @@ public class HydroponicsContext : DbContext
     }
 
     base.OnModelCreating(modelBuilder);
-    _ = modelBuilder.ApplyConfiguration(new SubstrateMap());
-    _ = modelBuilder.ApplyConfiguration(new CultivationMethodMap());
-
+    _ = modelBuilder
+      .ApplyConfiguration(new SubstrateMap())
+      .ApplyConfiguration(new CultivationMethodMap())
+      .ApplyConfiguration(new MeasureMap())
+      .ApplyConfiguration(new PotMap());
 
     // Define specific decimal type for all decimal columns
     foreach (var property in modelBuilder.Model.GetEntityTypes()
@@ -35,5 +39,3 @@ public class HydroponicsContext : DbContext
     }
   }
 }
-
-

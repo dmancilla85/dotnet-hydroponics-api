@@ -28,4 +28,16 @@ Serilog:
   Properties:
     Application: Sample
 
+Swagger:
+  Name: David Antonio Mancilla
+  Email: david.a.m@live.com
+  GitHub: https://github.com/dmancilla85
+  Endpoint: /swagger/v1/swagger.json
+  Version: v1
+  Title: Hydroponics
+  Description: Hydroponics API v1.0.
+
+HealthChecks:
+  EvaluationTimeInSeconds: 240
+
 AllowedHosts: "*"

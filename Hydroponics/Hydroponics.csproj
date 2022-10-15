@@ -6,9 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>f3d9338f-06cf-4b12-bf08-1b959fbaebe7</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Http" Version="6.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage.Net6" Version="1.0.1" />
@@ -29,6 +32,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
   </ItemGroup>
 
 </Project>

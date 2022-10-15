@@ -6,14 +6,15 @@ namespace Hydroponics.Model
   [Table("Substrate", Schema = "dbo")]
   public class Substrate
   {
-    public Substrate() {
+    public Substrate()
+    {
       this.Name = "";
     }
 
     [Key]
     public int Id { get; set; }
 
-    [Required(ErrorMessage="Substrate name is required")]
+    [Required(ErrorMessage = "Substrate name is required")]
     [StringLength(50, MinimumLength = 3, ErrorMessage = "Name length must be between 3 and 50 characters")]
     public string Name { get; set; }
   }
