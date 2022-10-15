@@ -1,0 +1,4 @@
+﻿# appsettings.Development.yml
+
+ConnectionStrings:
+  AzureSqlAuth: <secret SQL connection string here>

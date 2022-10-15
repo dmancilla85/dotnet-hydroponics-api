@@ -1,0 +1,31 @@
+﻿# appsettings.yml
+---
+Logging:
+    LogLevel: 
+      Default: Information
+      Microsoft.AspNetCore: Information
+
+Serilog:
+  Using:
+  - Serilog.Sinks.Console
+  MinimumLevel: Debug
+  WriteTo:
+  - Name: Console
+    Args:
+      theme: Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console
+      outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
+      Enrich:
+        - FromLogContext
+        - WithMachineName
+        - WithThreadId
+  - Name: File
+    Args:
+        path: ./Logs/hydroponics_.log
+        buffered: false
+        outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
+        rollingInterval: Day
+        retainedFileCountLimit: 7
+  Properties:
+    Application: Sample
+
+AllowedHosts: "*"
