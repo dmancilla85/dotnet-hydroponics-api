@@ -1,0 +1,8 @@
+﻿# appsettings.Development.yml
+
+ConnectionStrings:
+  AzureSqlAuth: <secret SQL connection string here>
+Jwt:
+  Issuer: test-user@live.com
+  Audience: test-user@live.com
+  Key: ijurkbdlhmklqacwqzdxmkkhvqowlyqa

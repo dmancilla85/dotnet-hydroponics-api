@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.32804.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hydroponics", "Hydroponics\Hydroponics.csproj", "{12F714E6-D80D-496A-B2FF-6F9BE65E8ECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hydroponics.Api", "src\Hydroponics\Hydroponics.Api.csproj", "{12F714E6-D80D-496A-B2FF-6F9BE65E8ECA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{5BAEEA12-5FD8-44C7-AEFF-DB6DCA6115FD}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApiEndpoints", "test\TestApiEndpoints\TestApiEndpoints.csproj", "{0F54A8F9-2682-48A6-A4B4-BDBB67F4EB60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +22,10 @@ Global
 		{12F714E6-D80D-496A-B2FF-6F9BE65E8ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12F714E6-D80D-496A-B2FF-6F9BE65E8ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12F714E6-D80D-496A-B2FF-6F9BE65E8ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F54A8F9-2682-48A6-A4B4-BDBB67F4EB60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F54A8F9-2682-48A6-A4B4-BDBB67F4EB60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F54A8F9-2682-48A6-A4B4-BDBB67F4EB60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F54A8F9-2682-48A6-A4B4-BDBB67F4EB60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

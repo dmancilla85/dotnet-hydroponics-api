@@ -1,0 +1,56 @@
+﻿# appsettings.yml
+---
+Logging:
+    LogLevel: 
+      Default: Information
+      Microsoft.AspNetCore: Information
+
+Serilog:
+  Using:
+  - Serilog.Sinks.Console
+  MinimumLevel: Debug
+  WriteTo:
+  - Name: Console
+    Args:
+      theme: Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console
+      outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
+      Enrich:
+        - FromLogContext
+        - WithMachineName
+        - WithThreadId
+  - Name: File
+    Args:
+        path: ./Logs/hydroponics_.log
+        buffered: false
+        outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
+        rollingInterval: Day
+        retainedFileCountLimit: 7
+  Properties:
+    Application: Sample
+
+Swagger:
+  Name: David Antonio Mancilla
+  Email: david.a.m@live.com
+  GitHub: https://github.com/dmancilla85
+  LicenseUrl: http://www.example.com
+  Endpoint: /swagger/v1/swagger.json
+  Version: v1
+  Title: Hydroponics
+  Description: Hydroponics API v1.0.
+
+HealthChecks:
+  EvaluationTimeInSeconds: 240
+
+Resilience:
+  ExceptionsBeforeBreak: 1
+  ExponentialIncrementForRetry: 3
+  Retries: 3
+  SecondsToWaitAfterCut: 30
+
+RateLimiter:
+  PermitLimit: 10
+  Window: 30
+  SegmentsPerWindow: 3
+  QueueLimit: 100
+
+AllowedHosts: "*"

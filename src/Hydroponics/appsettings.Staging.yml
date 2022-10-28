@@ -1,0 +1,10 @@
+﻿# appsettings.yml
+Logging:
+    LogLevel: 
+      Default: Information
+      Microsoft.AspNetCore: Information
+
+AllowedHosts: "*"
+
+ConnectionStrings:
+  AzureSqlServer: <CONNECTION HERE>
