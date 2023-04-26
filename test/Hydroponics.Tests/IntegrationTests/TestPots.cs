@@ -4,9 +4,9 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using static TestApiEndpoints.Helpers.TestHelpers;
 
-namespace TestApiEndpoints;
+namespace Hydroponics.Tests.IntegrationTests;
 
-public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Program>>
+public class TestPots : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient;
 
@@ -19,7 +19,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
         new AuthenticationHeaderValue("Bearer", token);
     }
 
-    public TestCultivationMethods(WebApplicationFactory<Program> webApplicationFactory)
+    public TestPots(WebApplicationFactory<Program> webApplicationFactory)
     {
         _ = webApplicationFactory ?? throw new ArgumentNullException(nameof(webApplicationFactory));
 
@@ -28,23 +28,20 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
         _httpClient.DefaultRequestHeaders.Add("Keep-Alive", "600");
     }
 
-    internal record Sample(int Id, string Name);
+    internal record Pot(int Id, string Name);
 
     [Fact]
-    public async Task WhenCallingGetCultivationMethods_ThenTheAPIReturnsExpectedResponse()
+    public async Task WhenCallingGetPots_ThenTheAPIReturnsExpectedResponse()
     {
-        // Arrange.
-        var expectedStatusCode = HttpStatusCode.OK;
-        var expectedContent = new List<Sample>()
+    // Arrange.
+    HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
+    // TODO: edit
+    List<Pot> expectedContent = new()
     {
-        new Sample(1, "WICK SYSTEM"),
-        new Sample(2, "DWC"),
-        new Sample(3, "RDWC"),
-        new Sample(4, "DRIP SYSTEM"),
-        new Sample(5, "NUTRIENT FILM"),
-        new Sample(1002,"Aero-Hydroponic")
+        new Pot(1, "WICK SYSTEM"),
+        new Pot(2, "DWC")
       };
-        var stopwatch = Stopwatch.StartNew();
+    Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
         if (NeedsBearerToken())
@@ -52,19 +49,20 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-        var response = _httpClient.GetAsync("api/v1/cultivationmethods").Result;
+    HttpResponseMessage response = _httpClient.GetAsync("api/v1/pots").Result;
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
     [Fact]
-    public async Task WhenCallingGetCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
+    public async Task WhenCallingGetPotsByID_ThenTheAPIReturnsExpectedResponse()
     {
-        // Arrange.
-        var expectedStatusCode = HttpStatusCode.OK;
-        var expectedContent = new Sample(2, "DWC");
-        var stopwatch = Stopwatch.StartNew();
+    // Arrange.
+    HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
+    // TODO: edit
+    Pot expectedContent = new(2, "DWC");
+    Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
         if (NeedsBearerToken())
@@ -72,19 +70,20 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-        var response = _httpClient.GetAsync("api/v1/cultivationmethods/2").Result;
+    HttpResponseMessage response = _httpClient.GetAsync("api/v1/pots/2").Result;
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
     [Fact]
-    public async Task WhenCallingUpdateCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
+    public async Task WhenCallingUpdatePotsByID_ThenTheAPIReturnsExpectedResponse()
     {
-        // Arrange.
-        var expectedStatusCode = HttpStatusCode.NoContent;
-        var elementToUpdate = new Sample(2, "DWC");
-        var stopwatch = Stopwatch.StartNew();
+    // Arrange.
+    HttpStatusCode expectedStatusCode = HttpStatusCode.NoContent;
+    // TODO: edit
+    Pot elementToUpdate = new(2, "DWC");
+    Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
         if (NeedsBearerToken())
@@ -92,7 +91,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-        var response = await _httpClient.PutAsync("api/v1/cultivationmethods/2", GetJsonStringContent(elementToUpdate));
+    HttpResponseMessage response = await _httpClient.PutAsync("api/v1/pots/2", GetJsonStringContent(elementToUpdate));
 
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);

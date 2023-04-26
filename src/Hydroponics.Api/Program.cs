@@ -15,7 +15,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog();
 
-builder.Configuration.AddYamlFile("appsettings.yml", optional: false)
+builder.Configuration
+  .AddEnvironmentVariables()
+  .AddYamlFile("appsettings.yml", optional: false)
   .AddYamlFile($"appsettings.{builder.Environment.EnvironmentName}.yml", optional: false)
   .AddUserSecrets<Program>();
 
@@ -122,4 +124,7 @@ app.UseHttpsRedirection();
 
 app.Run();
 
+/// <summary>
+/// This is declared to use with integration tests
+/// </summary>
 public partial class Program { }
