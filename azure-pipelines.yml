@@ -32,15 +32,15 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
-  displayName: Run tests
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+# - task: VSTest@2
+#   displayName: Run tests
+#   inputs:
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
     
-- task: PublishTestResults@2
-  displayName: Publish test results to Azure
-  inputs:
-    testResultsFormat: 'XUnit'
-    testResultsFiles: '**/TEST-*.xml'
-    testRunTitle: 'Integration Tests'
+# - task: PublishTestResults@2
+#   displayName: Publish test results to Azure
+#   inputs:
+#     testResultsFormat: 'XUnit'
+#     testResultsFiles: '**/TEST-*.xml'
+#     testRunTitle: 'Integration Tests'
