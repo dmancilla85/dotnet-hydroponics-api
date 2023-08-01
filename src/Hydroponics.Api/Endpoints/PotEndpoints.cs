@@ -86,7 +86,7 @@ internal static class PotEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("ListPots")
-          .WithTags(new[] { Collection })
+          .WithTags( Collection )
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -98,7 +98,7 @@ internal static class PotEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("GetPotById")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection )
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -113,7 +113,7 @@ internal static class PotEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("CreatePot")
-          .WithTags(new[] { Collection })
+          .WithTags( Collection )
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -128,7 +128,7 @@ internal static class PotEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("UpdatePot")
-          .WithTags(new[] { Collection })
+          .WithTags( Collection )
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -140,7 +140,7 @@ internal static class PotEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithName("DeletePot")
-          .WithTags(new[] { Collection })
+          .WithTags( Collection )
           .WithOpenApi()
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);

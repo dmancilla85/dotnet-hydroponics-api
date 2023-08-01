@@ -85,7 +85,7 @@ internal static class SubstrateEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("ListSubstrates")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection )
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -97,7 +97,7 @@ internal static class SubstrateEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("GetSubstrateById")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -112,7 +112,7 @@ internal static class SubstrateEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("CreateSubstrate")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -127,7 +127,7 @@ internal static class SubstrateEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("UpdateSubstrate")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -140,7 +140,7 @@ internal static class SubstrateEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("DeleteSubstrate")
-          .WithTags(new[] { Collection })
+          .WithTags( Collection )
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
     }

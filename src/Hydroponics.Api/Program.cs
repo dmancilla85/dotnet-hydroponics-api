@@ -1,4 +1,4 @@
-using Asp.Versioning;
+﻿using Asp.Versioning;
 using Asp.Versioning.Builder;
 using HealthChecks.UI.Client;
 using Hydroponics.Api.Infrastructure.Options;

@@ -85,7 +85,7 @@ internal static class CultivationMethodEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("ListCultivationMethods")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -97,7 +97,7 @@ internal static class CultivationMethodEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("GetCultivationMethodById")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -111,7 +111,7 @@ internal static class CultivationMethodEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("CreateCultivationMethod")
-          .WithTags(new[] { Collection })
+          .WithTags( Collection )
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -126,7 +126,7 @@ internal static class CultivationMethodEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("UpdateCultivationMethod")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -139,7 +139,7 @@ internal static class CultivationMethodEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("DeleteCultivationMethod")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
     }
