@@ -17,15 +17,17 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: NuGet Tool Installer
 
-- task: VSBuild@1
-  displayName: Build solution
+- task: NuGetCommand@2
+  displayName: Restore solution
   inputs:
-    solution: '**\*.sln'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    clean: true
-    restoreNugetPackages: true
-    msbuildArchitecture: 'x64'
+    restoreSolution: '$(solution)'
+
+# Build project
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'build'
+    arguments: '--no-restore'
 
 # - task: VSTest@2
 #   displayName: Run tests
