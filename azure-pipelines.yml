@@ -17,17 +17,15 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: NuGet Tool Installer
 
-- task: NuGetCommand@2
-  displayName: Restore solution
+- task: VSBuild@1
+  displayName: Build solution
   inputs:
-    restoreSolution: '$(solution)'
-
-# Build project
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'custom'
-    custom: 'build'
-    arguments: '--no-restore'
+    solution: '**\*.sln'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    clean: true
+    restoreNugetPackages: true
+    msbuildArchitecture: 'x64'
 
 # - task: VSTest@2
 #   displayName: Run tests
@@ -41,3 +39,10 @@ steps:
 #     testResultsFormat: 'XUnit'
 #     testResultsFiles: '**/TEST-*.xml'
 #     testRunTitle: 'Integration Tests'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish to Azure
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
