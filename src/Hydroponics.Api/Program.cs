@@ -66,7 +66,7 @@ if (!builder.Environment.IsDevelopment())
     builder.Services.AddHealthChecksUI(setupSettings: setup =>
     {
         setup.SetEvaluationTimeInSeconds(int.Parse(builder.Configuration["HealthChecks:EvaluationTimeInSeconds"] ?? ""));
-        setup.AddHealthCheckEndpoint("Azure SQL Server", "/health");
+        setup.AddHealthCheckEndpoint("Azure SQL Server", "/api/health");
     })
     .AddInMemoryStorage();
 }
@@ -104,7 +104,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapMetrics("api/metrics");
-app.MapHealthChecks("/health", new HealthCheckOptions
+app.MapHealthChecks("/api/health", new HealthCheckOptions
 {
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
