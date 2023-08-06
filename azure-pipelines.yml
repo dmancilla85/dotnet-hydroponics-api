@@ -27,10 +27,19 @@ jobs:
 
   # Build project
   - task: DotNetCoreCLI@2
+    displayName: Build solution
     inputs:
       command: 'custom'
       custom: 'build'
       arguments: '--no-restore'
+
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: publish
+      publishWebProjects: false
+      arguments: '--configuration $(buildConfiguration) --platform $(buildPlatform) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: true
 
   # - task: VSTest@2
   #   displayName: Run tests
