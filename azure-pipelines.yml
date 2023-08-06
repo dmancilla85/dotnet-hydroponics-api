@@ -38,7 +38,7 @@ jobs:
     inputs:
       command: publish
       publishWebProjects: false
-      arguments: '--configuration $(buildConfiguration) --platform $(buildPlatform) --output $(Build.ArtifactStagingDirectory)'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
       zipAfterPublish: true
 
   # - task: VSTest@2
