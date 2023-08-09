@@ -5,4 +5,4 @@ ConnectionStrings:
 Jwt:
   Issuer: test-user@live.com
   Audience: test-user@live.com
-  Key: ijurkbdlhmklqacwqzdxmkkhvqowlyqa
+  Key: ijurkbdlhmklqacwqzdxmkkhvqowlyqaijurkbdlhmklqacwqzdxmkkhvqowlyqa
