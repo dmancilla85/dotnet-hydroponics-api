@@ -4,43 +4,59 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- master
 - develop
 
-pool:
-  vmImage: 'windows-latest'
+jobs:
+- job: build_net7
+  displayName: Build and publish NET 7 project
+  pool: h6srmbdnre9-agent-pool
+  
+  variables:
+    solution: '**/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  steps:
+  - task: NuGetToolInstaller@1
+    displayName: NuGet Tool Installer
 
-steps:
-- task: NuGetToolInstaller@1
-  displayName: NuGet Tool Installer
+  - task: NuGetCommand@2
+    displayName: Restore solution
+    inputs:
+      restoreSolution: '$(solution)'
 
-- task: NuGetCommand@2
-  displayName: Restore solution
-  inputs:
-    restoreSolution: '$(solution)'
+  # Build project
+  - task: DotNetCoreCLI@2
+    displayName: Build solution
+    inputs:
+      command: 'custom'
+      custom: 'build'
+      arguments: '--no-restore'
 
-- task: VSBuild@1
-  displayName: Build solution
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: publish
+      publishWebProjects: false
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: true
 
-- task: VSTest@2
-  displayName: Run tests
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  # - task: VSTest@2
+  #   displayName: Run tests
+  #   inputs:
+  #     platform: '$(buildPlatform)'
+  #     configuration: '$(buildConfiguration)'
     
-- task: PublishTestResults@2
-  displayName: Publish test results to Azure
-  inputs:
-    testResultsFormat: 'XUnit'
-    testResultsFiles: '**/TEST-*.xml'
-    testRunTitle: 'Integration Tests'
+  # - task: PublishTestResults@2
+  #   displayName: Publish test results to Azure
+  #   inputs:
+  #     testResultsFormat: 'XUnit'
+  #     testResultsFiles: '**/TEST-*.xml'
+  #     testRunTitle: 'Integration Tests'
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish to Azure
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

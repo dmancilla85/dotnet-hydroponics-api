@@ -76,7 +76,7 @@ internal static class AccessEndpoints
           .Produces<string>(StatusCodes.Status200OK)
           .ProducesProblem(StatusCodes.Status401Unauthorized)
           .WithName("PostAccessLogin")
-          .WithTags(new[] { Collection })
+          .WithTags(Collection)
           .WithOpenApi()
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);

@@ -7,8 +7,8 @@ namespace TestApiEndpoints.Helpers
 {
   internal static class TestHelpers
   {
-    private const string _jsonMediaType = "application/json";
-    private const int _expectedMaxElapsedMilliseconds = 5000;
+    private const string JsonMediaType = "application/json";
+    private const int ExpectedMaxElapsedMilliseconds = 5000;
     private static readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
     internal record AccessAllowed(string Token);
@@ -39,7 +39,7 @@ namespace TestApiEndpoints.Helpers
     T expectedContent)
     {
       AssertCommonResponseParts(stopwatch, response, expectedStatusCode);
-      Assert.Equal(_jsonMediaType, response.Content.Headers.ContentType?.MediaType);
+      Assert.Equal(JsonMediaType, response.Content.Headers.ContentType?.MediaType);
       Assert.Equal(expectedContent, await JsonSerializer.DeserializeAsync<T?>(
           await response.Content.ReadAsStreamAsync(), _jsonSerializerOptions));
     }
@@ -49,7 +49,7 @@ namespace TestApiEndpoints.Helpers
         T expectedContent)
     {
       AssertCommonResponseParts(stopwatch, response, expectedStatusCode);
-      Assert.Equal(_jsonMediaType, response.Content.Headers.ContentType?.MediaType);
+      Assert.Equal(JsonMediaType, response.Content.Headers.ContentType?.MediaType);
       IEnumerable<T>? actualContent = await JsonSerializer.DeserializeAsync<IEnumerable<T>>(
           await response.Content.ReadAsStreamAsync(), _jsonSerializerOptions);
       
@@ -60,9 +60,9 @@ namespace TestApiEndpoints.Helpers
             HttpResponseMessage response, System.Net.HttpStatusCode expectedStatusCode)
     {
       Assert.Equal(expectedStatusCode, response.StatusCode);
-      Assert.True(stopwatch.ElapsedMilliseconds < _expectedMaxElapsedMilliseconds);
+      Assert.True(stopwatch.ElapsedMilliseconds < ExpectedMaxElapsedMilliseconds);
     }
     public static StringContent GetJsonStringContent<T>(T model)
-        => new(JsonSerializer.Serialize(model), Encoding.UTF8, _jsonMediaType);
+        => new(JsonSerializer.Serialize(model), Encoding.UTF8, JsonMediaType);
   }
 }
