@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>f3d9338f-06cf-4b12-bf08-1b959fbaebe7</UserSecretsId>
@@ -21,28 +21,28 @@
     <InternalsVisibleTo Include="TestApiEndpoints" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Asp.Versioning.Http" Version="7.0.0" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="7.0.1" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.0.0" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="7.0.0" />
+    <PackageReference Include="Asp.Versioning.Http" Version="8.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="8.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.9" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
-    <PackageReference Include="Polly" Version="7.2.4" />
-    <PackageReference Include="prometheus-net.AspNetCore" Version="8.0.1" />
-    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="7.0.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.1-dev-00907" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.6.0.74858">
+    <PackageReference Include="Polly" Version="8.2.1" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.16.0.82469">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
