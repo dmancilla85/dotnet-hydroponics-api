@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -42,8 +42,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
         new CultivationMethod(2, "DWC"),
         new CultivationMethod(3, "RDWC"),
         new CultivationMethod(4, "DRIP SYSTEM"),
-        new CultivationMethod(5, "NUTRIENT FILM"),
-        new CultivationMethod(1002,"Aero-Hydroponic")
+        new CultivationMethod(5, "NUTRIENT FILM")
       };
     Stopwatch stopwatch = Stopwatch.StartNew();
 
