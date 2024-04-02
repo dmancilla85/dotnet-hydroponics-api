@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -36,11 +36,13 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
     // Arrange.
     HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
     // TODO: edit
-    List<Pot> expectedContent = new()
-    {
-        new Pot(1, "WICK SYSTEM"),
-        new Pot(2, "DWC")
-      };
+    List<Pot> expectedContent =
+    [
+        new(  1, "WASP1" ),
+        new ( 2, "WASP2" ), 
+        new ( 3, "PIRANHA1" ), 
+        new ( 4, "PIRANHA2" )
+      ];
     Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
@@ -49,7 +51,7 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = _httpClient.GetAsync("api/v1/pots").Result;
+    var response = await _httpClient.GetAsync("api/v1/pots");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
@@ -61,7 +63,7 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
     // Arrange.
     HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
     // TODO: edit
-    Pot expectedContent = new(2, "DWC");
+    Pot expectedContent = new(2, "WASP2");
     Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
@@ -70,7 +72,7 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = _httpClient.GetAsync("api/v1/pots/2").Result;
+    var response = await _httpClient.GetAsync("api/v1/pots/2");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);

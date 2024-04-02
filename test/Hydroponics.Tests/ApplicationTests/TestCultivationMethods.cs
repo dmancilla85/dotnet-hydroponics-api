@@ -36,14 +36,14 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
     {
     // Arrange.
     HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
-    List<CultivationMethod> expectedContent = new()
-    {
+    List<CultivationMethod> expectedContent =
+    [
         new CultivationMethod(1, "WICK SYSTEM"),
         new CultivationMethod(2, "DWC"),
         new CultivationMethod(3, "RDWC"),
         new CultivationMethod(4, "DRIP SYSTEM"),
         new CultivationMethod(5, "NUTRIENT FILM")
-      };
+      ];
     Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
@@ -52,7 +52,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = _httpClient.GetAsync("api/v1/cultivationmethods").Result;
+    var response = await _httpClient.GetAsync("api/v1/cultivationmethods");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
@@ -73,7 +73,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = _httpClient.GetAsync("api/v1/cultivationmethods/2").Result;
+        HttpResponseMessage response = await _httpClient.GetAsync("api/v1/cultivationmethods/2");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
@@ -94,7 +94,8 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = await _httpClient.PutAsync("api/v1/cultivationmethods/2", GetJsonStringContent(elementToUpdate));
+    HttpResponseMessage response = await _httpClient
+            .PutAsync("api/v1/cultivationmethods/2", GetJsonStringContent(elementToUpdate));
 
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);

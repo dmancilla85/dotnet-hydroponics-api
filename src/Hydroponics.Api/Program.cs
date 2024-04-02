@@ -127,4 +127,13 @@ app.Run();
 /// <summary>
 /// This is declared to use with integration tests
 /// </summary>
-public partial class Program { }
+public partial class Program 
+{ 
+    /// <summary>
+    /// 
+    /// </summary>
+    protected Program() 
+    {
+        // do nothing
+    } 
+}
