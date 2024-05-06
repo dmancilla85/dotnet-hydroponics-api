@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -6,7 +6,7 @@ using static TestApiEndpoints.Helpers.TestHelpers;
 
 namespace Hydroponics.Tests.IntegrationTests;
 
-public class TestPots : IClassFixture<WebApplicationFactory<Program>>
+public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient;
 
@@ -19,7 +19,7 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
         new AuthenticationHeaderValue("Bearer", token);
     }
 
-    public TestPots(WebApplicationFactory<Program> webApplicationFactory)
+    public TestCultivationMethods(WebApplicationFactory<Program> webApplicationFactory)
     {
         _ = webApplicationFactory ?? throw new ArgumentNullException(nameof(webApplicationFactory));
 
@@ -28,19 +28,22 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
         _httpClient.DefaultRequestHeaders.Add("Keep-Alive", "600");
     }
 
-    internal record Pot(int Id, string Name);
+    internal record CultivationMethod(int Id, string Name);
 
-    [Fact]
-    public async Task WhenCallingGetPots_ThenTheAPIReturnsExpectedResponse()
+    [Trait("Category", "Cultivation Methods")]
+    [Fact(DisplayName = "When calling GetCultivationMethods, then the API returns OK")]
+    public async Task WhenCallingGetCultivationMethods_ThenTheAPIReturnsExpectedResponse()
     {
     // Arrange.
     HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
-    // TODO: edit
-    List<Pot> expectedContent = new()
-    {
-        new Pot(1, "WICK SYSTEM"),
-        new Pot(2, "DWC")
-      };
+    List<CultivationMethod> expectedContent =
+    [
+        new CultivationMethod(1, "WICK SYSTEM"),
+        new CultivationMethod(2, "DWC"),
+        new CultivationMethod(3, "RDWC"),
+        new CultivationMethod(4, "DRIP SYSTEM"),
+        new CultivationMethod(5, "NUTRIENT FILM")
+      ];
     Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
@@ -49,19 +52,19 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = _httpClient.GetAsync("api/v1/pots").Result;
+    var response = await _httpClient.GetAsync("api/v1/cultivationmethods");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
+    [Trait("Category", "Cultivation Methods")]
     [Fact]
-    public async Task WhenCallingGetPotsByID_ThenTheAPIReturnsExpectedResponse()
+    public async Task WhenCallingGetCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
     {
     // Arrange.
     HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
-    // TODO: edit
-    Pot expectedContent = new(2, "DWC");
+    CultivationMethod expectedContent = new(2, "DWC");
     Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
@@ -70,19 +73,19 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = _httpClient.GetAsync("api/v1/pots/2").Result;
+        HttpResponseMessage response = await _httpClient.GetAsync("api/v1/cultivationmethods/2");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
+    [Trait("Category", "Cultivation Methods")]
     [Fact]
-    public async Task WhenCallingUpdatePotsByID_ThenTheAPIReturnsExpectedResponse()
+    public async Task WhenCallingUpdateCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
     {
     // Arrange.
     HttpStatusCode expectedStatusCode = HttpStatusCode.NoContent;
-    // TODO: edit
-    Pot elementToUpdate = new(2, "DWC");
+    CultivationMethod elementToUpdate = new(2, "DWC");
     Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
@@ -91,7 +94,8 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = await _httpClient.PutAsync("api/v1/pots/2", GetJsonStringContent(elementToUpdate));
+    HttpResponseMessage response = await _httpClient
+            .PutAsync("api/v1/cultivationmethods/2", GetJsonStringContent(elementToUpdate));
 
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);
