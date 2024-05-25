@@ -18,11 +18,6 @@ internal class HydroponicsContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        if (modelBuilder == null)
-        {
-            throw new ArgumentNullException(nameof(modelBuilder));
-        }
-
         base.OnModelCreating(modelBuilder);
         _ = modelBuilder
             .ApplyConfiguration(new SubstrateMap())
