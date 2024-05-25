@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Testing;
-using static TestApiEndpoints.Helpers.TestHelpers;
+using static Hydroponics.Tests.Helpers.TestHelpers;
 
 namespace Hydroponics.Tests.IntegrationTests;
 
@@ -34,17 +34,17 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
     [Fact(DisplayName = "When calling GetCultivationMethods, then the API returns OK")]
     public async Task WhenCallingGetCultivationMethods_ThenTheAPIReturnsExpectedResponse()
     {
-    // Arrange.
-    HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
-    List<CultivationMethod> expectedContent =
-    [
-        new CultivationMethod(1, "WICK SYSTEM"),
+        // Arrange.
+        HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
+        List<CultivationMethod> expectedContent =
+        [
+            new CultivationMethod(1, "WICK SYSTEM"),
         new CultivationMethod(2, "DWC"),
         new CultivationMethod(3, "RDWC"),
         new CultivationMethod(4, "DRIP SYSTEM"),
         new CultivationMethod(5, "NUTRIENT FILM")
-      ];
-    Stopwatch stopwatch = Stopwatch.StartNew();
+          ];
+        Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
         if (NeedsBearerToken())
@@ -52,7 +52,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-    var response = await _httpClient.GetAsync("api/v1/cultivationmethods");
+        var response = await _httpClient.GetAsync("api/v1/cultivationmethods");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
@@ -62,10 +62,10 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
     [Fact]
     public async Task WhenCallingGetCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
     {
-    // Arrange.
-    HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
-    CultivationMethod expectedContent = new(2, "DWC");
-    Stopwatch stopwatch = Stopwatch.StartNew();
+        // Arrange.
+        HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
+        CultivationMethod expectedContent = new(2, "DWC");
+        Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
         if (NeedsBearerToken())
@@ -83,10 +83,10 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
     [Fact]
     public async Task WhenCallingUpdateCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
     {
-    // Arrange.
-    HttpStatusCode expectedStatusCode = HttpStatusCode.NoContent;
-    CultivationMethod elementToUpdate = new(2, "DWC");
-    Stopwatch stopwatch = Stopwatch.StartNew();
+        // Arrange.
+        HttpStatusCode expectedStatusCode = HttpStatusCode.NoContent;
+        CultivationMethod elementToUpdate = new(2, "DWC");
+        Stopwatch stopwatch = Stopwatch.StartNew();
 
         // Act.
         if (NeedsBearerToken())
@@ -94,8 +94,8 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-    HttpResponseMessage response = await _httpClient
-            .PutAsync("api/v1/cultivationmethods/2", GetJsonStringContent(elementToUpdate));
+        HttpResponseMessage response = await _httpClient
+                .PutAsync("api/v1/cultivationmethods/2", GetJsonStringContent(elementToUpdate));
 
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);

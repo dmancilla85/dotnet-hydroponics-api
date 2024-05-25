@@ -85,7 +85,7 @@ internal static class SubstrateEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("ListSubstrates")
-          .WithTags(Collection )
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -140,7 +140,7 @@ internal static class SubstrateEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("DeleteSubstrate")
-          .WithTags( Collection )
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
     }

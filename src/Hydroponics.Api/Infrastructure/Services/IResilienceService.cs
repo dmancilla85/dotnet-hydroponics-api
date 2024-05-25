@@ -28,7 +28,6 @@ public interface IResilienceService
     Task<TResult> CircuitBreakerWithRetry<TResult>(Func<Task<TResult>> action);
 
     /// <summary>
-    ///
     /// </summary>
     /// <returns></returns>
     public string GetCircuitBreakerState();

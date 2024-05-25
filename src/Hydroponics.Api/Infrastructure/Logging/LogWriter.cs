@@ -24,5 +24,4 @@ internal static partial class LogWriter
     // resilience service
     [LoggerMessage(1, LogLevel.Warning, "Retry {number}: {message} due to {exception}. Waiting {seconds} seconds.")]
     public static partial void LogRetryOperation(ILogger logger, int number, string message, string exception, double seconds);
-
 }

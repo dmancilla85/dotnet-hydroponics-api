@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hydroponics.Data;
 
-internal class HydroponicsContext : DbContext
+public class HydroponicsContext : DbContext
 {
     public HydroponicsContext(DbContextOptions<HydroponicsContext> options) : base(options)
     {

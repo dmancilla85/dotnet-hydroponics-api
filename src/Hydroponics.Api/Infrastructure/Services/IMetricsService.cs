@@ -8,9 +8,7 @@ public interface IMetricsService
     /// <summary>
     /// Contabilizar un error específico.
     /// </summary>
-    /// <remarks>
-    /// La cantidad de labels distintos por métrica no debe ser mayor a 50.
-    /// </remarks>
+    /// <remarks>La cantidad de labels distintos por métrica no debe ser mayor a 50.</remarks>
     /// <param name="label">Tipo de error</param>
     void CountError(string label);
 

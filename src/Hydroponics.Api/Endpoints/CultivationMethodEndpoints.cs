@@ -111,7 +111,7 @@ internal static class CultivationMethodEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("CreateCultivationMethod")
-          .WithTags( Collection )
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 

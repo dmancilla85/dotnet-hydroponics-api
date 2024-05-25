@@ -10,7 +10,7 @@ namespace Hydroponics.Data.Entities;
 public class Measure
 {
     /// <summary>
-    ///  Default constructor
+    /// Default constructor
     /// </summary>
     public Measure()
     {

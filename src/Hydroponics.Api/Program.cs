@@ -25,8 +25,7 @@ Log.Logger = new LoggerConfiguration()
   .ReadFrom.Configuration(builder.Configuration)
   .CreateLogger();
 
-// Add services to the container.
-// a. versioning
+// Add services to the container. a. versioning
 ApiVersion currentVersion = new(1, 0);
 
 builder.Services.AddApiVersioning(options =>
@@ -59,8 +58,7 @@ builder.Services.AddAutoMapper(/*AppDomain.CurrentDomain.GetAssemblies()*/typeof
 // d. db configuration
 builder.Services.AddDatabaseConfiguration(builder.Configuration, builder.Environment);
 
-// f. health checks UI
-// Registers required services for health checks (now only for prod)
+// f. health checks UI Registers required services for health checks (now only for prod)
 if (!builder.Environment.IsDevelopment())
 {
     builder.Services.AddHealthChecksUI(setupSettings: setup =>
@@ -122,18 +120,17 @@ app.MapMeasuresEndpoints(basePath, versionSet, currentVersion);
 
 app.UseHttpsRedirection();
 
-app.Run();
+await app.RunAsync();
 
 /// <summary>
 /// This is declared to use with integration tests
 /// </summary>
-public partial class Program 
-{ 
+public partial class Program
+{
     /// <summary>
-    /// 
     /// </summary>
-    protected Program() 
+    protected Program()
     {
         // do nothing
-    } 
+    }
 }

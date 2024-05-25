@@ -85,7 +85,7 @@ internal static class MeasureEndpoints
           .ProducesProblem(StatusCodes.Status500InternalServerError)
           .WithOpenApi()
           .WithName("ListMeasures")
-          .WithTags( Collection )
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -112,7 +112,7 @@ internal static class MeasureEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("CreateMeasure")
-          .WithTags( Collection )
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
 
@@ -140,7 +140,7 @@ internal static class MeasureEndpoints
           .ProducesProblem(StatusCodes.Status503ServiceUnavailable)
           .WithOpenApi()
           .WithName("DeleteMeasure")
-          .WithTags(Collection )
+          .WithTags(Collection)
           .WithApiVersionSet(versionSet)
           .HasApiVersion(currentVersion);
     }
