@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http.Headers;
 using Hydroponics.Data.Entities;
+using Hydroponics.Tests.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using static Hydroponics.Tests.Helpers.TestHelpers;
 
@@ -10,7 +11,7 @@ namespace Hydroponics.Tests.IntegrationTests;
 public class TestPots : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient;
-
+    private const string Category = "Application tests for pots";
     private bool NeedsBearerToken() => _httpClient.DefaultRequestHeaders.Authorization == null;
 
     private async Task SetBearerToken()
@@ -31,7 +32,8 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
 
     internal record PotRequest(int Id, string Name);
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Get all pots")]
     public async Task WhenCallingGetPots_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -40,9 +42,9 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
         List<PotRequest> expectedContent =
         [
             new(  1, "WASP1" ),
-        new ( 2, "WASP2" ),
-        new ( 3, "PIRANHA1" ),
-        new ( 4, "PIRANHA2" )
+            new ( 2, "WASP2" ),
+            new ( 3, "PIRANHA1" ),
+            new ( 4, "PIRANHA2" )
           ];
         Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -52,13 +54,14 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        var response = await _httpClient.GetAsync("api/v1/pots");
+        var response = await _httpClient.GetAsync(TestRoutes.POTS);
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Get pot by ID")]
     public async Task WhenCallingGetPotsByID_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -73,13 +76,14 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        var response = await _httpClient.GetAsync("api/v1/pots/2");
+        var response = await _httpClient.GetAsync($"{TestRoutes.POTS}/2");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Update pot by ID")]
     public async Task WhenCallingUpdatePotsByID_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -87,11 +91,11 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
         // TODO: edit
         Pot elementToUpdate = new()
         {
-            Name = "DWC",
+            Name = "WASP2",
             Height = 0.45m,
             Length = 0.34m,
             Width = 0.26m,
-            Liters = 20,
+            Liters = 20.0m,
         };
 
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -102,8 +106,7 @@ public class TestPots : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        HttpResponseMessage response = await _httpClient.PutAsync("api/v1/pots/2", GetJsonStringContent(elementToUpdate));
-
+        HttpResponseMessage response = await _httpClient.PutAsync($"{TestRoutes.POTS}/2", GetJsonStringContent(elementToUpdate));
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);
     }

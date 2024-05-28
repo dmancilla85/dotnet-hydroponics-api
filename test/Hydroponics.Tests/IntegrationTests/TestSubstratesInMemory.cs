@@ -8,7 +8,7 @@ using static Hydroponics.Tests.Helpers.TestHelpers;
 
 namespace Hydroponics.Tests.IntegrationTests;
 
-public class TestPotsInMemory : IClassFixture<CustomWebApplicationFactory<Program>>
+public class TestSubstratesInMemory : IClassFixture<CustomWebApplicationFactory<Program>>
 {
     private const string Category = "Integration tests with SQL in-memory for pots";
     private readonly HttpClient _httpClient;
@@ -22,7 +22,7 @@ public class TestPotsInMemory : IClassFixture<CustomWebApplicationFactory<Progra
         new AuthenticationHeaderValue("Bearer", token);
     }
 
-    public TestPotsInMemory(CustomWebApplicationFactory<Program> webApplicationFactory)
+    public TestSubstratesInMemory(CustomWebApplicationFactory<Program> webApplicationFactory)
     {
         _httpClient = webApplicationFactory.CreateClient();
         _httpClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
@@ -30,8 +30,8 @@ public class TestPotsInMemory : IClassFixture<CustomWebApplicationFactory<Progra
     }
 
     [Trait("Category", Category)]
-    [Fact(DisplayName = "Get all pots")]
-    public async Task GetPots_OK()
+    [Fact(DisplayName = "Get all substrates")]
+    public async Task GetSubstrates_OK()
     {
         // Arrange.
         HttpStatusCode expectedStatusCode = HttpStatusCode.OK;
@@ -43,7 +43,7 @@ public class TestPotsInMemory : IClassFixture<CustomWebApplicationFactory<Progra
         }
 
         // Act.
-        HttpResponseMessage response = await _httpClient.GetAsync(TestRoutes.POTS);
+        HttpResponseMessage response = await _httpClient.GetAsync(TestRoutes.SUBSTRATES);
 
         var res = await response.Content.ReadAsStringAsync();
 
@@ -52,19 +52,15 @@ public class TestPotsInMemory : IClassFixture<CustomWebApplicationFactory<Progra
     }
 
     [Trait("Category", Category)]
-    [Fact(DisplayName = "Create a new pot")]
-    public async Task CreatePots_OK()
+    [Fact(DisplayName = "Create a new substrate")]
+    public async Task CreateSubstrate_OK()
     {
         // Arrange.
         HttpStatusCode expectedStatusCode = HttpStatusCode.Created;
         // TODO: edit
-        Pot elementToCreate = new()
+        Substrate elementToCreate = new()
         {
-            Name = "WASP2",
-            Height = 0.45m,
-            Length = 0.34m,
-            Width = 0.26m,
-            Liters = 20.0m,
+            Name = "BLOTTING PAPER"
         };
 
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -75,7 +71,7 @@ public class TestPotsInMemory : IClassFixture<CustomWebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-        HttpResponseMessage response = await _httpClient.PostAsync(TestRoutes.POTS, GetJsonStringContent(elementToCreate));
+        HttpResponseMessage response = await _httpClient.PostAsync(TestRoutes.SUBSTRATES, GetJsonStringContent(elementToCreate));
         
         var res = await response.Content.ReadAsStringAsync();
 

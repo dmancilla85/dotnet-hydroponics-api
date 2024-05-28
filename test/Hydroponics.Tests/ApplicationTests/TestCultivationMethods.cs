@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
+using Hydroponics.Tests.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using static Hydroponics.Tests.Helpers.TestHelpers;
 
@@ -9,6 +10,7 @@ namespace Hydroponics.Tests.IntegrationTests;
 public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient;
+    private const string Category = "Application tests for cultivation methods";
 
     private bool NeedsBearerToken() => _httpClient.DefaultRequestHeaders.Authorization == null;
 
@@ -30,7 +32,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
 
     internal record CultivationMethod(int Id, string Name);
 
-    [Trait("Category", "Cultivation Methods")]
+    [Trait("Category", Category)]
     [Fact(DisplayName = "When calling GetCultivationMethods, then the API returns OK")]
     public async Task WhenCallingGetCultivationMethods_ThenTheAPIReturnsExpectedResponse()
     {
@@ -52,13 +54,13 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-        var response = await _httpClient.GetAsync("api/v1/cultivationmethods");
+        var response = await _httpClient.GetAsync(TestRoutes.CULTIVATION_METHODS);
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Trait("Category", "Cultivation Methods")]
+    [Trait("Category", Category)]
     [Fact]
     public async Task WhenCallingGetCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
     {
@@ -73,13 +75,13 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
             await SetBearerToken();
         }
 
-        HttpResponseMessage response = await _httpClient.GetAsync("api/v1/cultivationmethods/2");
+        HttpResponseMessage response = await _httpClient.GetAsync($"{TestRoutes.CULTIVATION_METHODS}/2");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Trait("Category", "Cultivation Methods")]
+    [Trait("Category", Category)]
     [Fact]
     public async Task WhenCallingUpdateCultivationMethodsByID_ThenTheAPIReturnsExpectedResponse()
     {
@@ -95,7 +97,7 @@ public class TestCultivationMethods : IClassFixture<WebApplicationFactory<Progra
         }
 
         HttpResponseMessage response = await _httpClient
-                .PutAsync("api/v1/cultivationmethods/2", GetJsonStringContent(elementToUpdate));
+                .PutAsync($"{TestRoutes.CULTIVATION_METHODS}/2", GetJsonStringContent(elementToUpdate));
 
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);

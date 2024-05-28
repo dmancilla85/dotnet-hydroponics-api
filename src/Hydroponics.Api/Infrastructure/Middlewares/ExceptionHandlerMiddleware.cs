@@ -7,18 +7,11 @@ using Polly.CircuitBreaker;
 
 namespace Hydroponics.Api.Infrastructure.Middlewares;
 
-internal class ExceptionHandlerMiddleware
+internal class ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger, IMetricsService metricsService)
 {
-    private readonly ILogger<ExceptionHandlerMiddleware> _logger;
-    private readonly IMetricsService _metricsService;
-    private readonly RequestDelegate _next;
-
-    public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger, IMetricsService metricsService)
-    {
-        _next = next;
-        _logger = logger;
-        _metricsService = metricsService;
-    }
+    private readonly ILogger<ExceptionHandlerMiddleware> _logger = logger;
+    private readonly IMetricsService _metricsService = metricsService;
+    private readonly RequestDelegate _next = next;
 
     public async Task Invoke(HttpContext context)
     {

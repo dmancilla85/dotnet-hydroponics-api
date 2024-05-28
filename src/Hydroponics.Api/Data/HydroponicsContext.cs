@@ -4,18 +4,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hydroponics.Data;
 
-public class HydroponicsContext : DbContext
+/// <summary>
+/// 
+/// </summary>
+/// <param name="options"></param>
+public class HydroponicsContext(DbContextOptions<HydroponicsContext> options) : DbContext(options)
 {
-    public HydroponicsContext(DbContextOptions<HydroponicsContext> options) : base(options)
-    {
-        // do something
-    }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public virtual DbSet<CultivationMethod> CultivationMethods { get; set; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public virtual DbSet<Measure> Measures { get; set; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public virtual DbSet<Pot> Pots { get; set; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public virtual DbSet<Substrate> Substrates { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

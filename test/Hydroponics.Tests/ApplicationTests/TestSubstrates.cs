@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
+using Hydroponics.Tests.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using static Hydroponics.Tests.Helpers.TestHelpers;
 
@@ -9,7 +10,7 @@ namespace Hydroponics.Tests.IntegrationTests;
 public class TestSubstrates : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient;
-
+    private const string Category = "Application tests for substrates";
     private bool NeedsBearerToken() => _httpClient.DefaultRequestHeaders.Authorization == null;
 
     private async Task SetBearerToken()
@@ -30,7 +31,7 @@ public class TestSubstrates : IClassFixture<WebApplicationFactory<Program>>
 
     internal record Substrate(int Id, string Name);
 
-    [Trait("Category", "Substrates")]
+    [Trait("Category", Category)]
     [Fact(DisplayName = "When calling GET /substrates then the API returns OK")]
     public async Task WhenCallingGetSubstrates_ThenTheAPIReturnsExpectedResponse()
     {
@@ -54,13 +55,14 @@ public class TestSubstrates : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        var response = await _httpClient.GetAsync("api/v1/substrates");
+        var response = await _httpClient.GetAsync(TestRoutes.SUBSTRATES);
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Get substrate by ID")]
     public async Task WhenCallingGetSubstratesByID_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -75,13 +77,14 @@ public class TestSubstrates : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        var response = await _httpClient.GetAsync("api/v1/substrates/2");
+        var response = await _httpClient.GetAsync($"{TestRoutes.SUBSTRATES}/2");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Update pot by ID")]
     public async Task WhenCallingUpdateSubstratesByID_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -96,7 +99,7 @@ public class TestSubstrates : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        HttpResponseMessage response = await _httpClient.PutAsync("api/v1/substrates/2", GetJsonStringContent(elementToUpdate));
+        HttpResponseMessage response = await _httpClient.PutAsync($"{TestRoutes.SUBSTRATES}/2", GetJsonStringContent(elementToUpdate));
 
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);

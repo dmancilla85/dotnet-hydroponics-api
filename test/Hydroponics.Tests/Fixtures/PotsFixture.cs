@@ -16,7 +16,7 @@ internal class PotsFixture
         },
         new Pot
         {
-            Name = "WASP2",
+            Name = "WASP3",
             Height = 0.45m,
             Length = 0.34m,
             Width = 0.26m,

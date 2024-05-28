@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net.Http.Json;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Text.Json;
 
@@ -70,6 +71,7 @@ internal static class TestHelpers
     internal static StringContent GetJsonStringContent<T>(T model)
         => new(JsonSerializer.Serialize(model), Encoding.UTF8, JsonMediaType);
 
+    [SupportedOSPlatform("windows6.1")]
     internal static string GenerateBase64ImageString()
     {
         if (!OperatingSystem.IsWindows())
@@ -96,6 +98,7 @@ internal static class TestHelpers
         return Convert.ToBase64String(jpegStream.ToArray());
     }
 
+    [SupportedOSPlatform("windows6.1")]
     internal static string GenerateImageString()
     {
         if (!OperatingSystem.IsWindows()) //
@@ -119,6 +122,10 @@ internal static class TestHelpers
         // 4. Save as JPEG and convert to Base64
         using MemoryStream jpegStream = new();
         bitmap.Save(jpegStream, ImageFormat.Jpeg);
-        return Convert.ToString(jpegStream.ToArray());
+
+        byte[] stream = jpegStream.ToArray();
+        string? result = Convert.ToString(stream);
+
+        return result ?? "";
     }
 }

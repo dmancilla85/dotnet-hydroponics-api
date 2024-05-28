@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
+using Hydroponics.Tests.Helpers;
 using Microsoft.AspNetCore.Mvc.Testing;
 using static Hydroponics.Tests.Helpers.TestHelpers;
 
@@ -9,6 +10,7 @@ namespace Hydroponics.Tests.IntegrationTests;
 public class TestMeasures : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _httpClient;
+    private const string Category = "Application tests for measures";
 
     private bool NeedsBearerToken() => _httpClient.DefaultRequestHeaders.Authorization == null;
 
@@ -30,7 +32,8 @@ public class TestMeasures : IClassFixture<WebApplicationFactory<Program>>
 
     internal record Measure(int Id, string Name, string Description, string Units, decimal MinValue, decimal MaxValue);
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Get all measures")]
     public async Task WhenCallingGetMeasures_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -51,13 +54,14 @@ public class TestMeasures : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        var response = await _httpClient.GetAsync("api/v1/measures");
+        var response = await _httpClient.GetAsync(TestRoutes.MEASURES);
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Get measure by ID")]
     public async Task WhenCallingGetMeasuresByID_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -72,13 +76,14 @@ public class TestMeasures : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        var response = await _httpClient.GetAsync("api/v1/measures/2");
+        var response = await _httpClient.GetAsync($"{TestRoutes.MEASURES}/2");
 
         // Assert.
         await AssertResponseWithContentAsync(stopwatch, response, expectedStatusCode, expectedContent);
     }
 
-    [Fact]
+    [Trait("Category", Category)]
+    [Fact(DisplayName = "Update measure by ID")]
     public async Task WhenCallingUpdateMeasuresByID_ThenTheAPIReturnsExpectedResponse()
     {
         // Arrange.
@@ -93,7 +98,7 @@ public class TestMeasures : IClassFixture<WebApplicationFactory<Program>>
             await SetBearerToken();
         }
 
-        HttpResponseMessage response = await _httpClient.PutAsync("api/v1/measures/2", GetJsonStringContent(elementToUpdate));
+        HttpResponseMessage response = await _httpClient.PutAsync($"{TestRoutes.MEASURES}/2", GetJsonStringContent(elementToUpdate));
 
         // Assert.
         AssertCommonResponseParts(stopwatch, response, expectedStatusCode);

@@ -15,12 +15,13 @@ public class CustomWebApplicationFactory<TProgram>
   : WebApplicationFactory<TProgram> where TProgram : class
 {
     public DateTime CurrentTestDate { get; set; }
+    private const string InMemoryDatabaseName = "HydroponicsTest";
     private readonly DbContextOptions<HydroponicsContext> _contextOptions;
 
     public CustomWebApplicationFactory()
     {
         _contextOptions = new DbContextOptionsBuilder<HydroponicsContext>()
-            .UseInMemoryDatabase("HydroponicsTest")
+            .UseInMemoryDatabase(InMemoryDatabaseName)
             .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
             .Options;
 
@@ -63,9 +64,18 @@ public class CustomWebApplicationFactory<TProgram>
             if (context != null)
             {
                 services.Remove(context);
+
+                var options = services.Where(r => (r.ServiceType == typeof(DbContextOptions)) || 
+                    (r.ServiceType.IsGenericType && r.ServiceType.GetGenericTypeDefinition() == typeof(DbContextOptions<>))).ToArray();
+                
+                foreach (var option in options)
+                {
+                    services.Remove(option);
+                }
             }
 
-            services.AddDbContext<HydroponicsContext>(opt => _contextOptions.BuildOptionsFragment());
+            services.AddDbContext<HydroponicsContext>(opt => opt.UseInMemoryDatabase(InMemoryDatabaseName)
+            .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning)));
         });
     }
 }
